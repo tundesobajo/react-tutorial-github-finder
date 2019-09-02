@@ -5,7 +5,16 @@ import GithubReducer from './githubReducer';
 import { GET_USER, GET_USERS, SEARCH_USERS, CLEAR_USERS, GET_REPOS, SET_LOADING } from '../types';
 import usersData from '../../data/UsersData';
 
-const secret = `client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`;
+let githubClientId;
+let githubClientSecret;
+if (process.env.NODE_ENV !== 'production') {
+  githubClientId = REACT_APP_GITHUB_CLIENT_ID;
+  githubClientSecret = REACT_APP_GITHUB_CLIENT_SECRET;
+} else {
+  githubClientId = GITHUB_CLIENT_ID;
+  githubClientSecret = GITHUB_CLIENT_SECRET;
+}
+const secret = `client_id=${githubClientId}&client_secret=${githubClientSecret}`;
 
 const GithubState = props => {
   const initialState = {
